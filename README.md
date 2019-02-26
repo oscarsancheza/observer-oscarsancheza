@@ -1,4 +1,5 @@
-# obs-init
+# PROYECTO: Reestructuración de código usando patrón Observer
+
 El reto de esta tarea es resolver los ejercicios 1.1 al 1.3 del proyecto disponible en  la siguiente página:
 http://csserver.ucd.ie/~meloc/DesignPatternJavaExercises/Observer/Observer.htm
 
