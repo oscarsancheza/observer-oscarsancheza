@@ -45,16 +45,11 @@ public class PieChartObserver extends JPanel implements Observer {
 			CourseRecord record = courseData.elementAt(i);
 			if (record.getName().equals(courseRecord.getName())) {
 				alreadyExists = true;
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"Warning: Attempt to add new course with an already existing name",
-								"alert", JOptionPane.ERROR_MESSAGE);
-				i = courseData.size(); // exit the loop
+				courseData.set(i, courseRecord);
 			}
 		}
 		if (!alreadyExists) {
-			this.courseData.addElement(courseRecord);
+			this.courseData.add(courseRecord);
 		}
 	}
 	
