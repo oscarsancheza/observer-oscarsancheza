@@ -36,14 +36,25 @@ public abstract class Observable {
 		}
 	}
 
+	public void notifyObservers() {
+        notifyObservers(null);
+    }
 	/**
 	 * Notify all Observers that Subject has changed
 	 */
-	public void notifyObservers() {
-		for (int i = 0; i < observers.size(); i++) {
-			Observer observer = observers.elementAt(i);
-			observer.update(this);
-		}
+	public void notifyObservers(Object obj) {
+
+        Object[] arrLocal;
+
+        if (!changed) {
+        	return;
+        }
+        
+        arrLocal = observers.toArray();
+        changed = false;
+
+        for (int i = arrLocal.length-1; i>=0; i--)
+            ((Observer)arrLocal[i]).update(this, obj);
 	}
 
 	/**
@@ -52,6 +63,11 @@ public abstract class Observable {
 	 * @return the updated data from the Subject
 	 */
 	public abstract Object getUpdate();
-
+	
+    protected synchronized void setChanged() {
+        changed = true;
+    }
+	
+	private boolean changed = false;
 	protected Vector<Observer> observers;
 }
