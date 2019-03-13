@@ -5,12 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import observer.CourseRecord;
 import observer.LayoutConstants;
 
-public class PieChartObserver extends JPanel implements Observer{
+public class PieChartObserver extends JPanel implements Observer {
 
 	private Vector<CourseRecord> courseData;
 	
@@ -24,11 +25,11 @@ public class PieChartObserver extends JPanel implements Observer{
 		this.setBackground(Color.white);
 	}
 	
-	
 	@Override
-	public void update(Observable o) {
-		CourseData data = (CourseData) o;
-		this.courseData = data.getUpdate();
+	public void update(Observable observable, Object data) {
+		CourseRecord courseRecord= (CourseRecord) data;
+		
+		addData(courseRecord);
 
 		this.setPreferredSize(new Dimension(2 * LayoutConstants.xOffset
 				+ (LayoutConstants.barSpacing + LayoutConstants.barWidth)
@@ -38,6 +39,24 @@ public class PieChartObserver extends JPanel implements Observer{
 		this.repaint();
 	}
 	
+	private void addData(CourseRecord courseRecord) {
+		boolean alreadyExists = false;
+		for (int i = 0; i < courseData.size(); i++) {
+			CourseRecord record = courseData.elementAt(i);
+			if (record.getName().equals(courseRecord.getName())) {
+				alreadyExists = true;
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Warning: Attempt to add new course with an already existing name",
+								"alert", JOptionPane.ERROR_MESSAGE);
+				i = courseData.size(); // exit the loop
+			}
+		}
+		if (!alreadyExists) {
+			this.courseData.addElement(courseRecord);
+		}
+	}
 	
 	public void paint(Graphics g) {
 		super.paint(g);

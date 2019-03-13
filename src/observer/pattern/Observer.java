@@ -10,5 +10,5 @@ public interface Observer {
 	 * @param o
 	 *            the observed subject that has changed
 	 */
-	public void update(Observable o);
+    void update(Observable observable, Object data);
 }
