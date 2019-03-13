@@ -40,7 +40,9 @@ public class CourseData extends Observable {
 		}
 		if (!alreadyExists)
 			this.courseData.addElement(courseRecord);
-		this.notifyObservers();
+		
+		this.setChanged();
+		this.notifyObservers(courseRecord);	
 	}
 
 	/**
@@ -52,15 +54,22 @@ public class CourseData extends Observable {
 	 *            the new number of students for this course
 	 */
 	public void changeCourseRecord(String subjectName, int numOfStudents) {
+		
+		CourseRecord record = null;
 		for (int i = 0; i < courseData.size(); i++) {
-			CourseRecord record = courseData.elementAt(i);
+			record = courseData.elementAt(i);
 			if (record.getName().equals(subjectName)) {
 				record.setNumOfStudents(numOfStudents);
 				i = courseData.size();
 			}
 		}
-		this.notifyObservers();
+		
+		if (record != null) {
+			this.setChanged();
+			this.notifyObservers(record);
+		}
 	}
+	
 
 	/**
 	 * Return a copy of the vector of course data. Used by Observers to pull

@@ -98,7 +98,7 @@ public class CourseController extends JPanel implements Observer, ChangeListener
 	 * @param o
 	 *            the CourseData subject that has changed
 	 */
-	 public void update(Observable o) {
+	 public void update(Observable o, Object obj) {
 		CourseData courses = (CourseData) o;
 		Vector<CourseRecord> newCourses = courses.getUpdate();
 		for (int i = sliders.size(); i < newCourses.size(); i++) {
@@ -144,9 +144,9 @@ public class CourseController extends JPanel implements Observer, ChangeListener
 		data.addCourseRecord(new CourseRecord("Biology", 50));
 
 		CourseController controller = new CourseController(data);
-		BarChartObserver bar = new BarChartObserver(data);
-
-		JScrollPane scrollPane = new JScrollPane(bar,
+		//BarChartObserver bar = new BarChartObserver(data);
+		PieChartObserver pie = new PieChartObserver(data);
+		JScrollPane scrollPane = new JScrollPane(pie,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
