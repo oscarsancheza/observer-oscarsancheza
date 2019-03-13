@@ -43,7 +43,7 @@ public class BarChartObserver extends JPanel implements Observer {
 		LayoutConstants.paintBarChartOutline(g, this.courseData.size());
 		for (int i = 0; i < courseData.size(); i++) {
 			CourseRecord record = (CourseRecord) courseData.elementAt(i);
-			g.setColor(Color.blue);
+			g.setColor(LayoutConstants.courseColours[i]);
 			g.fillRect(
 					LayoutConstants.xOffset + (i + 1)
 							* LayoutConstants.barSpacing + i
